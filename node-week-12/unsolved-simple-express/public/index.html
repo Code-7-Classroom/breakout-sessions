@@ -16,10 +16,48 @@
 
         </div>
     </div>
-
+    <!-- div -->
+    <!-- p -->
 </body>
 
 <script type="text/javascript">
+    // Selecting parent container for incoming data to render(show up on the page)
+    const userContainer = document.querySelector("#user--container")
+
+    const createNode = (element) => {
+        return document.createElement(element)
+    }
+    // createNode('div') => div will show on my website
+
+    const append = (parent, child) => {
+        return parent.appendChild(child)
+        // document.append
+    }
+    // append(userContainer, div)
+
+    window.onload = fetchAPI = () => {
+        fetch("/api/users")
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                return data.map((item) => {
+                    let userCard = createNode('div')
+                    let name = createNode('h3')
+                    let email = createNode('p')
+
+                    name.innerText = `${item.username}`
+                    email.innerText = `${item.email}`
+
+                    append(userContainer, userCard)
+                    append(userCard, name)
+                    append(userCard, email)
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
 </script>
 
